@@ -51,7 +51,7 @@ jobs:
         file: main/ci/deploy.yml
       - put: final-release
         params:
-          from: deploy/release/build/*.tgz
+          from: deploy/target/universal/*.zip
   - name: deploy2
     serial: true
     plan:
