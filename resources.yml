@@ -1,0 +1,59 @@
+resources:
+  - name: main
+    type: git
+    source:
+      uri: https://github.com/dataplayground/restSimple.git
+      branch: master
+
+  - name: final-release
+    type: git
+    source:
+      uri: https://github.com/dataplayground/restSimple.git
+      branch: master
+
+  - name: gh-release
+    type: github-release
+    source:
+      user: dataplayground
+      repository: restSimple
+
+jobs:
+  - name: worker-main
+    plan:
+      - get: main
+      - task: unit
+        file: ci/unit.yml
+
+  - name: deploy
+    serial: true
+    plan:
+      - aggregate:
+          - get: main
+            passed: [worker-main]
+      - task: deploy
+        file: deploy.yml
+      - put: final-release
+        params:
+          from: deploy/release/build/*.tgz
+      - task: deploy-gh
+        file: deploy-gh.yml
+
+      - put: gh-release
+        params:
+          name: fooBarTest
+          tag: 1.0-test
+          body: path/to/body/file
+          globs:
+            - deploy/release/build/*.tgz
+
+groups:
+- name: tests
+  jobs:
+  - worker-main
+- name: deploy
+  jobs:
+  - deploy
+- name: overview
+  jobs:
+  - worker-main
+  - deploy
