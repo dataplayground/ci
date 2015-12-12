@@ -6,10 +6,9 @@ This are my steps familiarizing with concourse ci. I generated the source-projec
 Now I try to set up a simple CI / CD pipeline.
 
 # Overview of the pipeline
-The pipeline should watch https://github.com/dataplayground/restSimple for new commits and then trigger tests if a new commit is detected on master.
+The pipeline should watch https://github.com/dataplayground/restSimple for new commits and trigger tests if a new commit is detected on master.
 
-For for testing I will run `sbt test`
-
+For testing I will simply run unit-tests using `sbt test`
 If the tests complete successfully, I want to deploy the result to github as a release.
 
 https://github.com/dataplayground/ci comtains my current progress at building the pipeline.
