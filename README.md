@@ -21,6 +21,7 @@ https://github.com/dataplayground/ci comtains my current progress at building th
  - login as `fly --target test login  --concourse-url http://192.168.100.4:8080 sync`
  - "manually" run unit tests `fly -t test execute -c unit.yml`
  - create this simple pipeline `fly set-pipeline -t test -c resources.yml -p simple`
+ - to load credentials use parameters as such: http://concourse.ci/fly-cli.html#parameters you can use `fly set-pipeline --pipeline test --config resources.yml --load-vars-from credentials.yml`
 
 # Open problems
  - The unit tests are run in the following container: `1science/sbt` How can I specify a persistant storage for the ivy-dependencies ?
@@ -29,8 +30,8 @@ https://github.com/dataplayground/ci comtains my current progress at building th
 
 # Open questions:
  - Is there a simple way to deploy as docker-containers maybe using docker-compose?
- -  Is the grouping supposed to be used like this e.g. to include a final overview?
- - Is it good practice to spread ci-config over the modules e.g. to move 'unit.yml' to the project?
+ - Is the grouping supposed to be used like this e.g. to include a final overview?
+ - Is it good practice to spread ci-config over the modules e.g. to move 'unit.yml' to the project? e.g. like here where CI resides in a different GIT than the actual project to be compiled.
  - How can I match any (feature) branch as a git resource?
 
 # Open TODOs
