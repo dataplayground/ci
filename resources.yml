@@ -21,7 +21,7 @@ resources:
       user: dataplayground
       repository: restSimple
       access_token: {{github-access-token}}
-  - name: docker-hub
+  - name: dockerhub
     type: docker-image
     source:
       repository: dataplayground/rest
@@ -41,56 +41,55 @@ jobs:
       - task: unit
         file: dev/ci/unit.yml
 
-  - name: deploy1
+  # - name: deploy1
+  #   serial: true
+  #   plan:
+  #     - aggregate:
+  #         - get: main
+  #           passed: [worker-main]
+  #     - task: deploy
+  #       file: main/ci/deploy.yml
+  #     - put: final-release
+  #       params:
+  #         from: deploy/release/build/*.tgz
+  # - name: deploy2
+  #   serial: true
+  #   plan:
+  #     - aggregate:
+  #         - get: main
+  #           passed: [worker-main]
+  #     - task: deploy-gh
+  #       file: main/ci/deploy-gh.yml
+  #     - put: gh-release
+  #       params:
+  #         name: fooBarTest
+  #         tag: 1.0-test
+  #         body: path/to/body/file
+  #         globs:
+  #           - deploy-gh/*.tgz
+
+  - name: deploy3
     serial: true
     plan:
-      - aggregate:
-          - get: main
-            passed: [worker-main]
-      - task: deploy
-        file: main/ci/deploy.yml
-      - put: final-release
-        params:
-          from: deploy/release/build/*.tgz
-  - name: deploy2
-    serial: true
-    plan:
-      - aggregate:
-          - get: main
-            passed: [worker-main]
-      - task: deploy-gh
-        file: main/ci/deploy-gh.yml
-      - put: gh-release
-        params:
-          name: fooBarTest
-          tag: 1.0-test
-          body: path/to/body/file
-          globs:
-            - deploy/release/build/*.tgz
-    - name: deploy3
-    serial: true
-    plan:
-      - aggregate:
-          - get: main
-            passed: [worker-main]
-      - put: hello-world-docker-image
-      params:
-        build: main/ci/docker
+      - get: main
+      passed: [worker-main]
+      - put: docker-hub
+      params: {build: main}
 
 groups:
 - name: overview
   jobs:
   - worker-main
   - worker-dev
-  - deploy1
-  - deploy2
+ # - deploy1
+  #- deploy2
   - deploy3
 - name: tests
   jobs:
   - worker-main
   - worker-dev
-- name: deploy
-  jobs:
-  - deploy1
-  - deploy2
-  - deploy3
+ - name: deploy
+   jobs:
+#   - deploy1
+#   - deploy2
+   - deploy3
