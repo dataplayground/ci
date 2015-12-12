@@ -25,12 +25,13 @@ https://github.com/dataplayground/ci comtains my current progress at building th
 # Open problems
  - The unit tests are run in the following container: `1science/sbt` How can I specify a persistant storage for the ivy-dependencies ?
  - What is the right tool to release to github? I try to use two things here but I am not sure which one is correct
- - albeit running the unit tests locally seems to work successfully, I only geht the following error in the pipeline: `config path 'unit.yml' does not specify where the file lives`
 
 
 # Open questions:
  - Is there a simple way to deploy as docker-containers maybe using docker-compose?
  -  Is the grouping supposed to be used like this e.g. to include a final overview?
+ - Is it good practice to spread ci-config over the modules e.g. to move 'unit.yml' to the project?
+ - How can I match any (feature) branch as a git resource?
 
 # Open TODOs
  - try deployment
