@@ -41,32 +41,32 @@ jobs:
       - task: unit
         file: dev/ci/unit.yml
 
-  # - name: deploy1
-  #   serial: true
-  #   plan:
-  #     - aggregate:
-  #         - get: main
-  #           passed: [worker-main]
-  #     - task: deploy
-  #       file: main/ci/deploy.yml
-  #     - put: final-release
-  #       params:
-  #         from: deploy/release/build/*.tgz
-  # - name: deploy2
-  #   serial: true
-  #   plan:
-  #     - aggregate:
-  #         - get: main
-  #           passed: [worker-main]
-  #     - task: deploy-gh
-  #       file: main/ci/deploy-gh.yml
-  #     - put: gh-release
-  #       params:
-  #         name: fooBarTest
-  #         tag: 1.0-test
-  #         body: path/to/body/file
-  #         globs:
-  #           - deploy-gh/*.tgz
+  - name: deploy1
+    serial: true
+    plan:
+      - aggregate:
+          - get: main
+            passed: [worker-main]
+      - task: deploy
+        file: main/ci/deploy.yml
+      - put: final-release
+        params:
+          from: deploy/release/build/*.tgz
+  - name: deploy2
+    serial: true
+    plan:
+      - aggregate:
+          - get: main
+            passed: [worker-main]
+      - task: deploy-gh
+        file: main/ci/deploy-gh.yml
+      - put: gh-release
+        params:
+          name: fooBarTest
+          tag: 1.0-test
+          body: path/to/body/file
+          globs:
+            - deploy-gh/*.tgz
 
   - name: deploy3
     serial: true
@@ -81,8 +81,8 @@ groups:
   jobs:
   - worker-main
   - worker-dev
- # - deploy1
-  #- deploy2
+  - deploy1
+  - deploy2
   - deploy3
 - name: tests
   jobs:
@@ -90,6 +90,6 @@ groups:
   - worker-dev
 - name: deploy
   jobs:
-#   - deploy1
-#   - deploy2
+  - deploy1
+  - deploy2
   - deploy3
