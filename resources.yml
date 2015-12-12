@@ -82,11 +82,15 @@ groups:
   jobs:
   - worker-main
   - worker-dev
-  - deploy
+  - deploy1
+  - deploy2
+  - deploy3
 - name: tests
   jobs:
   - worker-main
   - worker-dev
 - name: deploy
   jobs:
-  - deploy
+  - deploy1
+  - deploy2
+  - deploy3

@@ -21,7 +21,7 @@ https://github.com/dataplayground/ci comtains my current progress at building th
  - login as `fly --target test login  --concourse-url http://192.168.100.4:8080 sync`
  - "manually" run unit tests `fly -t test execute -c unit.yml`
  - create this simple pipeline `fly set-pipeline -t test -c resources.yml -p simple`
- - to load credentials use parameters as such: http://concourse.ci/fly-cli.html#parameters you can use `fly set-pipeline --pipeline test --config resources.yml --load-vars-from credentials.yml`
+ - to load credentials use parameters as such: http://concourse.ci/fly-cli.html#parameters you can use `fly set-pipeline --pipeline test --config resources.yml --load-vars-from credentials.yml
 
 # Open problems
  - The unit tests are run in the following container: `1science/sbt` How can I specify a persistant storage for the ivy-dependencies ?
@@ -40,3 +40,4 @@ https://github.com/dataplayground/ci comtains my current progress at building th
  - hock into repository
  - releases
  - auto-merge feature into dev if tets pass
+ - fetch only n-git revisions in resources for speedup
