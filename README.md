@@ -35,4 +35,7 @@ https://github.com/dataplayground/ci comtains my current progress at building th
 
 # Open TODOs
  - try deployment
- - try docker container export
+ - try docker container export to hub
+ - hock into repository
+ - releases
+ - auto-merge feature into dev if tets pass
