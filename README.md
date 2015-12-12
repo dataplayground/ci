@@ -1,7 +1,7 @@
 Getting familiar with concourse ci
 ===========================
 
-This are my steps familiarizing with the latest concourse ci. I generated the project at https://github.com/dataplayground/restSimple using the activator: `activator-service-container-tutorial`
+This are my steps familiarizing with concourse ci. I generated the source-project at https://github.com/dataplayground/restSimple using the activator: `activator-service-container-tutorial`
 
 Now I try to set up a simple CI / CD pipeline.
 
