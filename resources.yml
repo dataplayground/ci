@@ -4,6 +4,11 @@ resources:
     source:
       uri: https://github.com/dataplayground/restSimple.git
       branch: master
+  - name: dev
+    type: git
+    source:
+      uri: https://github.com/dataplayground/restSimple.git
+      branch: develop
 
   - name: final-release
     type: git
@@ -22,7 +27,13 @@ jobs:
     plan:
       - get: main
       - task: unit
-        file: ci/unit.yml
+        file: main/ci/unit.yml
+  - name: worker-dev
+    plan:
+      - get: dev
+      - task: unit
+        file: dev/ci/unit.yml
+
 
   - name: deploy
     serial: true
@@ -47,13 +58,15 @@ jobs:
             - deploy/release/build/*.tgz
 
 groups:
-- name: tests
-  jobs:
-  - worker-main
-- name: deploy
-  jobs:
-  - deploy
 - name: overview
   jobs:
   - worker-main
+  - worker-dev
+  - deploy
+- name: tests
+  jobs:
+  - worker-main
+  - worker-dev
+- name: deploy
+  jobs:
   - deploy
